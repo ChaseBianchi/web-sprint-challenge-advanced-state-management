@@ -1,8 +1,30 @@
+// import { bindActionCreators } from "redux";
+import {FETCH_BEGIN,FETCH_SUCCESS,FETCH_FAIL,POST_SUCCESS,UPDATE_ERR} from '../actions'
 
 export const initialState = {
+    smurfs: [], loading: false, error: ''
 }
 
-const reducer = ()=>{
+const reducer = (state = initialState, action)=>{
+    switch(action.type){
+        case(FETCH_BEGIN):
+            return({
+                ...state, loading: true
+            })
+        case(FETCH_SUCCESS): 
+            return({
+                ...state, smurfs: action.payload, loading: false
+            })
+        case(FETCH_FAIL): 
+            return({
+                ...state, error: "Form has an error."
+            })
+        case(POST_SUCCESS):
+            return({
+                ...state, smurfs: [...state.smurfs]
+            })
+        default: return state
+    }
 }
 
 export default reducer;
